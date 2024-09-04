@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Job configurations list view -->
+    <record id="job_configurations_tree_view" model="ir.ui.view">
+        <field name="name">job.configurations.tree.view</field>
+        <field name="model">job.configurations</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="targeted_position"/>
+                <field name="state"
+                       decoration-success="state == 'accepted'"
+                       decoration-info="state == 'draft'"
+                       decoration-danger="state == 'rejected'"
+                       widget="badge"
+                />
+                <field name="number_recovered_job_posts" invisible="state == 'draft'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Job configurations form view -->
+    <record id="job_configurations_form_view" model="ir.ui.view">
+        <field name="name">job.configurations.form.view</field>
+        <field name="model">job.configurations</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="scraping_posts" type="object" string="SCRAP" class="btn-primary"
+                            invisible="state in ('accepted', 'rejected')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,accepted,rejected"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="targeted_position" readonly="state != 'draft'"/>
+                        <field name="state" invisible="1"/>
+                        <field name="number_recovered_job_posts" invisible="state == 'draft'"/>
+                        <field name="recovered_job_post_ids" invisible="state == 'draft'">
+                            <tree create="False">
+                                <field name="name"/>
+                                <field name="link"/>
+                                <field name="publication_date"/>
+                                <field name="publisher"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Job configurations action -->
+    <record id="job_configurations_action" model="ir.actions.act_window">
+        <field name="name">Job Configurations</field>
+        <field name="res_model">job.configurations</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

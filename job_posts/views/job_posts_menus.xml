@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="job_posts_menu" name="Job Posts" sequence="10" web_icon="job_posts,static/src/img/job_icon.png">
+        <menuitem id="job_posts_submenu" name="Job Posts" action ="job_posts_action" sequence="10"/>
+        <menuitem id="settings_menu" name="Settings" sequence="20">
+            <menuitem id="job_configurations_menu" name="Job Configurations" action ="job_configurations_action" sequence="10"/>
+        </menuitem>
+    </menuitem>
+
+</odoo>
